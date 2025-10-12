@@ -1,14 +1,18 @@
 const myLibrary = [];
 
 const book2 = new Book(crypto.randomUUID(), "Book 2", "Author 2", 200);
-const book3 = new Book(crypto.randomUUID(), "Book 3", "Author 3", 300);
-const book4 = new Book(crypto.randomUUID(), "Book 4", "Author 4", 400);
-const book5 = new Book(crypto.randomUUID(), "Book 5", "Author 5", 500);
-addBookToLibrary(book2);
-addBookToLibrary(book3);
-addBookToLibrary(book4);
-addBookToLibrary(book5);
-console.log(myLibrary);
+
+const addButton = document.querySelector("#addButton");
+const closeButton = document.querySelector("#closeButton");
+const dialog = document.querySelector("dialog");
+
+addButton.addEventListener("click", () => {
+  dialog.showModal();
+});
+
+closeButton.addEventListener("click", () => {
+  dialog.close();
+});
 
 function Book(id, name, author, pages) {
   this.id = id;
@@ -36,4 +40,21 @@ function displayBooks() {
   });
 }
 
+function addBook() {
+  const addBookForm = document.querySelector("#addBookForm");
+  addBookForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const title = addBookForm.querySelector("input[name='title']").value;
+    const author = addBookForm.querySelector("input[name='author']").value;
+    const pages = addBookForm.querySelector("input[name='pages']").value;
+    const book = new Book(crypto.randomUUID(), title, author, pages);
+    addBookToLibrary(book);
+    displayBooks();
+    addBookForm.reset();
+    dialog.close();
+  });
+}
+
+addBookToLibrary(book2);
+addBook();
 displayBooks();

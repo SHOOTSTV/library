@@ -18,15 +18,64 @@
   gap: 20px;
 }
 
-h1 {
-  margin-bottom: 20px;
+.container > * {
+  margin-bottom: 10px;
 }
 
+button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Dialog */
+dialog {
+  border-radius: 5px;
+  padding: 20px;
+  width: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+dialog > h2 {
+  margin-bottom: 10px;
+}
+
+.form-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-inputs > * {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Book Container */
 .book-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   align-items: center;
+  justify-content: center;
 }
 
 .book {
@@ -38,4 +87,5 @@ h1 {
   border: 1px solid #ccc;
   padding: 20px;
   border-radius: 5px;
+  min-width: 150px;
 }
