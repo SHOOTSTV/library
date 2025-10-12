@@ -1,5 +1,4 @@
 const myLibrary = [];
-
 const book2 = new Book(crypto.randomUUID(), "Book 2", "Author 2", 200);
 
 const addButton = document.querySelector("#addButton");
@@ -25,7 +24,7 @@ function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
-function displayBooks() {
+function renderLibrary() {
   const bookContainer = document.querySelector(".book-container");
   bookContainer.innerHTML = "";
   myLibrary.forEach((book) => {
@@ -40,7 +39,7 @@ function displayBooks() {
   });
 }
 
-function addBook() {
+function handleAddBookForm() {
   const addBookForm = document.querySelector("#addBookForm");
   addBookForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -49,12 +48,12 @@ function addBook() {
     const pages = addBookForm.querySelector("input[name='pages']").value;
     const book = new Book(crypto.randomUUID(), title, author, pages);
     addBookToLibrary(book);
-    displayBooks();
+    renderLibrary();
     addBookForm.reset();
     dialog.close();
   });
 }
 
 addBookToLibrary(book2);
-addBook();
-displayBooks();
+handleAddBookForm();
+renderLibrary();
