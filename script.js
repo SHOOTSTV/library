@@ -1,5 +1,6 @@
 const myLibrary = [];
-const book2 = new Book(crypto.randomUUID(), "Book 2", "Author 2", 200);
+const book2 = new Book(crypto.randomUUID(), "Book 2", "Author 2", 200, true);
+const book3 = new Book(crypto.randomUUID(), "Book 3", "Author 3", 300, false);
 
 const addButton = document.querySelector("#addButton");
 const closeButton = document.querySelector("#closeButton");
@@ -17,14 +18,22 @@ document.addEventListener("click", (event) => {
   if (event.target.classList.contains("removeButton")) {
     removeBook(event);
   }
+  if (event.target.classList.contains("toggleRead")) {
+    toggleRead(event);
+  }
 });
 
-function Book(id, name, author, pages) {
+function Book(id, name, author, pages, isRead) {
   this.id = id;
   this.name = name;
   this.author = author;
   this.pages = pages;
+  this.isRead = isRead;
 }
+
+Book.prototype.toggleRead = function () {
+  this.isRead = !this.isRead;
+};
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
@@ -40,6 +49,12 @@ function renderLibrary() {
       <h2>${book.name}</h2>
       <p>Author: ${book.author}</p>
       <p>Pages: ${book.pages}</p>
+      <div class="read-container">
+        <p>Read: ${book.isRead ? "Yes" : "No"}</p>
+        <input type="checkbox" class="toggleRead" data-id="${book.id}" ${
+      book.isRead ? "checked" : ""
+    } />
+      </div>
       <button class="removeButton" data-id="${book.id}">Remove</button>
     `;
     bookContainer.appendChild(bookElement);
@@ -72,6 +87,17 @@ function removeBook(event) {
   }
 }
 
+function toggleRead(event) {
+  const index = myLibrary.findIndex(
+    (book) => book.id === event.target.dataset.id
+  );
+  if (index !== -1) {
+    myLibrary[index].toggleRead();
+    renderLibrary();
+  }
+}
+
 addBookToLibrary(book2);
+addBookToLibrary(book3);
 handleAddBookForm();
 renderLibrary();
