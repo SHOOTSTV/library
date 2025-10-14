@@ -13,6 +13,12 @@ closeButton.addEventListener("click", () => {
   dialog.close();
 });
 
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("removeButton")) {
+    removeBook(event);
+  }
+});
+
 function Book(id, name, author, pages) {
   this.id = id;
   this.name = name;
@@ -34,6 +40,7 @@ function renderLibrary() {
       <h2>${book.name}</h2>
       <p>Author: ${book.author}</p>
       <p>Pages: ${book.pages}</p>
+      <button class="removeButton" data-id="${book.id}">Remove</button>
     `;
     bookContainer.appendChild(bookElement);
   });
@@ -52,6 +59,17 @@ function handleAddBookForm() {
     addBookForm.reset();
     dialog.close();
   });
+}
+
+function removeBook(event) {
+  const index = myLibrary.findIndex(
+    (book) => book.id === event.target.dataset.id
+  );
+
+  if (index !== -1) {
+    myLibrary.splice(index, 1);
+    renderLibrary();
+  }
 }
 
 addBookToLibrary(book2);
